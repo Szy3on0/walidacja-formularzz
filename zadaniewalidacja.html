@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f8ff; }
+        form { width: 300px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 8px; }
+        label { display: block; margin-top: 10px; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; }
+        .error { color: rgb(250, 12, 12); font-size: 12px; margin-top: 5px; }
+        button { background-color: #3af753; color: white; padding: 10px; border: none; width: 100%; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<form id="registrationForm" novalidate>
+    <h2>Formularzzzzz na 5+</h2>
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email">
+
+    <label for="username">Nazwa użytkownika:</label>
+    <input type="text" id="username" name="username">
+
+    <label for="password">Hasło:</label>
+    <input type="password" id="password" name="password">
+
+    <label for="confirm_password">Potwierdź hasło:</label>
+    <input type="password" id="confirm_password" name="confirm_password">
+
+    <label for="dob">Data urodzenia:</label>
+    <input type="date" id="dob" name="dob">
+
+    <label for="country">Kraj:</label>
+    <select id="country" name="country">
+        <option value="">Wybierz kraj</option>
+        <option value="Polska">Polska</option>
+        <option value="Niemcy">Niemcy</option>
+        <option value="USA">USA</option>
+        <option value="Wielka Brytania">Wielka Brytania</option>
+    </select>
+
+    <button type="submit">Zarejestruj konto</button>
+</form>
+
+<script>
+$(document).ready(function() {
+    $("#registrationForm").validate({
+        errorElement: 'div',
+        errorClass: 'error',
+        errorPlacement: function(error, element) {
+            error.insertAfter(element); // Dodajemy komunikat błędu bezpośrednio pod polem
+        },
+       
+       
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            username: {
+                required: true,
+                minlength: 3
+            },
+            password: {
+                required: true,
+                minlength: 6
+            },
+            confirm_password: {
+                required: true,
+                equalTo: "#password"
+            },
+            dob: {
+                required: true,
+                date: true
+            },
+            country: {
+                required: true
+            }
+        },
+        messages: {
+            email: "Proszę wpisać poprawny e-mail.",
+            username: "Proszę wpisać nazwę użytkownika (min. 3 znaki).",
+            password: "Hasło musi mieć co najmniej 6 znaków.",
+            confirm_password: "Hasła muszą być identyczne.",
+            dob: "Proszę podać datę urodzenia.",
+            country: "Proszę wybrać kraj."
+        },
+        submitHandler: function(form) {
+            alert("Konto zarejestrowane!");
+            form.submit(); // Możesz usunąć, jeśli nie chcesz rzeczywistego wysyłania formularza
+        }
+    });
+});
+</script>
+
+</body>
+</html>
